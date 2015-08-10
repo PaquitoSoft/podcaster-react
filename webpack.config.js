@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-	entry: './app/js/main.js',
+	entry: './app/js/app.js',
 	output: {
 		filename: './dist/podcaster.js'
 	},

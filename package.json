@@ -9,7 +9,9 @@
   "author": "Paquitosoft",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^3.3.5"
+    "bootstrap": "^3.3.5",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3"
   },
   "devDependencies": {
     "babel-core": "^5.8.21",
