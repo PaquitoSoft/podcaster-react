@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.5",
+    "lscache": "^1.0.5",
     "react": "^0.13.3",
     "react-router": "^0.13.3"
   },

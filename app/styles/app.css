@@ -15,6 +15,9 @@ body {
 	line-height: 40px;
 }
 
+.podcast-summary {
+	min-height: 285px;
+}
 
 .box {
 	border-radius: 3px;
@@ -47,6 +50,13 @@ body {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
+}
+.box-icon img {
+	border-radius: 100%;
+	width: 100%;
+}
+.box .info p > span {
+	display: block;
 }
 .box a, .box a:hover {
 	color: #000000;
