@@ -1,28 +1,16 @@
-// import React from 'react';
-
-// let Main = React.createClass({
-// 	render() {
-// 		var podcastsCount = 25;
-// 		return (
-// 			<div className="container">
-// 				<h2>Here will be the podcasts grid ({podcastsCount})</h2>
-// 			</div>
-// 		);
-// 	}
-// });
-
-// export default Main;
-
-
 import React from 'react';
-import { RouteHandler } from 'react-router';
+import { RouteHandler, Link } from 'react-router';
 
 let Home = React.createClass({
 	render() {
 		return (
 			<div className="container">
 				<div className="header clearfix">
-					<h3 className="text-muted">Podcaster</h3>
+					<h3 className="text-muted">
+						<Link to="/">
+							Podcaster
+						</Link>
+					</h3>
 				</div>
 
 				<div>
