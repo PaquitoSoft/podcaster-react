@@ -97,7 +97,17 @@ body {
 
 .filter {
 	margin-bottom: 30px;
+	text-align: right;
 }
+.filter .badge {
+	font-size: 25px;
+}
+.filter #filter {
+	display: inline;
+	width: 80%;
+	margin-left: 10px;
+}
+
 
 .podcast-cover img {
 	margin-top: 10px;

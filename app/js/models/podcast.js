@@ -5,8 +5,10 @@ const PODCASTS_DATASOURCE_URL = 'https://itunes.apple.com/us/rss/toppodcasts/lim
 class Podcast {
 
 	constructor(rawData) {
-		this.name = rawData['im:name'];
+		this.id = rawData.id.attributes['im:id'];
+		this.name = rawData['im:name'].label;
 		this.author = rawData['im:artist'].label;
+		this.description = rawData.summary ? rawData.summary.label : '';
 		if (rawData['im:releaseDate']) {
 			this.releaseDate = rawData['im:releaseDate'].attributes.label; // rawData['im:releaseDate'].label => zulu date
 		}
