@@ -35,9 +35,11 @@ let Home = React.createClass({
 
 	render() {
 		console.info('Home render...');
+		
 		let podcasts = this.state.filteredPodcasts.map(function (podcast, index) {
 			return <PodcastSummary podcast={podcast} key={index} />;
 		}, this);
+
 		return (
 			<div className="podcasts-grid">
 
@@ -51,7 +53,6 @@ let Home = React.createClass({
 
 				<div className="row">
 					<div className="col-md-12">
-
 						<div className="row podcasts">
 							{podcasts}
 						</div>

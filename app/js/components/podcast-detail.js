@@ -1,6 +1,7 @@
 import React from 'react';
-import { State } from 'react-router';
+import { State, Link } from 'react-router';
 import PodcastsStore from '../stores/podcasts-store';
+import PodcastModel from '../models/podcast';
 import PodcastSidebar from './podcast-sidebar';
 
 let PodcastDetail = React.createClass({
@@ -9,44 +10,45 @@ let PodcastDetail = React.createClass({
 
 	getInitialState() {
 		return {
-			podcast: {},
-			episodes: []
+			podcast: new PodcastModel()
 		};
 	},
 
 	componentDidMount() {
-		console.log('URL params:', this.getParams());
-		console.log(arguments);
 		PodcastsStore.findById(this.getParams().podcastId)
 			.then(podcast => {
 				this.setState({ podcast: podcast });
-				console.log(podcast);
 			})
 			.catch(err => {
 				console.warn('Error fetching podcast data:', this.getParams().podcastId, err);
 			});
 	},
 
-	navToEpisode(argument) {
-		console.log('TODO: Navigate to episode');
-	},
-
 	render() {
-		var episodes = this.state.episodes.map(episode => {
+		var episodes = this.state.podcast.episodes.map((episode, index) => {
 			return (
-				<tr>
+				<tr key={index}>
 					<td>
-						<a href="#" onClick={this.navToEpisode}>{episode.title}</a>
+						<Link to="episode" params={{podcastId: this.state.podcast.id, episodeId: episode.id}}>
+							{episode.title}
+						</Link>
 					</td>
-					<td>{episode.publishedDate}</td>
+					<td>{episode.date}</td>
+					<td>{episode.duration}</td>
 				</tr>
 			);
-		});
+		}, this);
 
 		return (
 			<div className="row">
 				<PodcastSidebar podcast={this.state.podcast} />
 				
+				<div className="col-md-8 col-md-offset-1 section podcast-episodes-count">
+					<span>
+						Episodes: 10
+					</span>
+				</div>
+
 				<div className="col-md-8 col-md-offset-1 section">
 					<div className="podcast-episodes">
 						<table className="table table-hover table-striped">
@@ -54,6 +56,7 @@ let PodcastDetail = React.createClass({
 								<tr>
 									<th>Title</th>
 									<th>Date</th>
+									<th>Duration</th>
 								</tr>
 							</thead>
 							<tbody>

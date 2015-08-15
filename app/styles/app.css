@@ -3,6 +3,13 @@ body {
 	padding-bottom: 20px;
 }
 
+.truncate {
+	width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .header {
 	margin-bottom: 30px;
 	padding-bottom: 10px;
@@ -20,7 +27,7 @@ body {
 }
 
 .podcast-summary {
-	min-height: 285px;
+	min-height: 350px;
 }
 
 .box {
@@ -68,7 +75,7 @@ body {
 }
 
 .info h4 {
-	font-size: 26px;
+	font-size: 16px;
 	/*letter-spacing: 2px;*/
 	text-transform: uppercase;
 
@@ -111,7 +118,9 @@ body {
 	width: 80%;
 	margin-left: 10px;
 }
-
+.filter .badge {
+	background-color: #337ab7;
+}
 
 .podcast-cover img {
 	margin-top: 10px;
@@ -119,6 +128,9 @@ body {
 }
 .podcast-title {
 	padding-left: 10px;
+}
+.podcast-title a {
+	color: #000000;
 }
 .podcast-title .title {
 	font-size: 16px;
@@ -136,6 +148,13 @@ body {
 }
 .podcast-episodes {
 	margin: 10px;
+}
+
+.podcast-episodes-count {
+	margin-bottom: 20px;
+	font-size: 22px;
+	font-weight: bold;
+	padding-left: 15px;
 }
 
 .episode-detail {

@@ -1,6 +1,8 @@
 import lscache from 'lscache';
 
-let _xmlParser = new DOMParser();
+let _xmlParser = new DOMParser(),
+	jsonpCallbackId = 0,
+	jsonpTimeoutHandler = function(){};
 
 function checkResponseStatus(res) {
 	if (res.status < 400) {
@@ -35,9 +37,9 @@ function parseJson(res) {
 	});
 }
 
-function cacheResponse(shouldCache, ttl, key) {
+function cacheResponse(ttl, key) {
 	return (data) => {
-		if (shouldCache) {
+		if (ttl) {
 			console.log('Ajax::cacheResponse# Caching response with key:', key, 'for', ttl, 'minutes.');
 			lscache.set(data.url, data.result, ttl); // Last parameter is TTL in minutes
 		}
@@ -45,7 +47,7 @@ function cacheResponse(shouldCache, ttl, key) {
 	}
 }
 
-function getData(url, responseParser, options = {cache: false}) {
+function getData(url, responseParser, options = {ttl: 0}) {
 	let data = lscache.get(url);
 	if (data) {
 		return Promise.resolve(data);
@@ -53,14 +55,44 @@ function getData(url, responseParser, options = {cache: false}) {
 		return fetch(url)
 			.then(checkResponseStatus)
 			.then(responseParser)
-			.then(cacheResponse(options.cache, options.ttl, url));
+			.then(cacheResponse(options.ttl, url));
 	}
 }
 
-export function getJson(url, options = {cache: false}) {
+export function getJson(url, options) {
 	return getData(url, parseJson, options);
 }
 
-export function getXml(url, options = {cache: false}) {
+export function getXml(url, options) {
 	return getData(url, xmlParser, options);
+}
+
+/*
+	Idea from http://blog.garstasio.com/you-dont-need-jquery/ajax/#jsonp
+*/
+export function getJsonp(url, options = {cache: false, callbackParamName: 'callback', timeout: 10000}) {
+	return new Promise((resolve, reject) => {
+		let script = document.createElement('script'),
+			callbackFnName = `_pdJsonpCallback_${jsonpCallbackId++}`,
+			toHandler;
+
+		// If we get to the timeout before having the response, we reject the promise
+		// so we don't have the client waiting forever and we clear the global function
+		// so it doesn't get invoked later, if the response arrives
+		toHandler = setTimeout(function() {
+			reject(new Error('JsonP timeout: ' + url));
+			setTimeout(function() { window[callbackFnName] = jsonpTimeoutHandler; }, 4);
+		}, options.timeout);
+
+		window[callbackFnName] = function(data) {
+			resolve(data);
+			setTimeout(() => {
+				delete window[callbackFnName];
+				if (toHandler) clearTimeout(toHandler);
+			}, 4);
+		};
+
+		script.setAttribute('src', `${url}&${options.callbackParamName}=${callbackFnName}`);
+		document.body.appendChild(script);
+	});
 }

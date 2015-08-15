@@ -26,13 +26,4 @@ let PodcastSummary = React.createClass({
 	}
 });
 
-/*
-<span className="text-center">
-	<span>(Espisodes: </span>
-	<span>{this.props.podcast.episodes.length}</span>
-	<span>)</span>
-</span>
-*/
-
 export default PodcastSummary;
-
