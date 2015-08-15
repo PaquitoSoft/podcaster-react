@@ -8,29 +8,38 @@ let EpisodeDetail = React.createClass({
 
 	mixins: [State],
 
+	statics: {
+		fetchData(params) {
+			return PodcastsStore.findById(params.podcastId);
+		}
+	},
+
 	getInitialState() {
+		console.log(this.props);
 		return {
-			podcast: new PodcastModel(),
-			episode: {}
+			podcast: this.props.data[0],
+			episode: this.props.data[0].episodes.filter(ep => {
+					return ep.id === this.props.params.episodeId;
+				})[0]
 		};
 	},
 
-	componentDidMount() {
-		let routeParams = this.getParams();
+	// componentDidMount() {
+	// 	let routeParams = this.getParams();
 
-		PodcastsStore.findById(routeParams.podcastId)
-			.then(podcast => {
-				this.setState({
-					podcast: podcast,
-					episode: podcast.episodes.filter(ep => {
-							return ep.id === routeParams.episodeId;
-						})[0]
-				});
-			})
-			.catch(err => {
-				console.warn('Error fetching podcast data:', this.getParams().podcastId, err);
-			});
-	},
+	// 	PodcastsStore.findById(routeParams.podcastId)
+	// 		.then(podcast => {
+	// 			this.setState({
+	// 				podcast: podcast,
+	// 				episode: podcast.episodes.filter(ep => {
+	// 						return ep.id === routeParams.episodeId;
+	// 					})[0]
+	// 			});
+	// 		})
+	// 		.catch(err => {
+	// 			console.warn('Error fetching podcast data:', this.getParams().podcastId, err);
+	// 		});
+	// },
 
 	render() {
 		return (

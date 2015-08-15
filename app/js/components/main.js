@@ -2,6 +2,8 @@ import React from 'react';
 import { RouteHandler, Link } from 'react-router';
 
 let Home = React.createClass({
+	// props syntax is to be able to pass to inner route handlers 
+	// data received by parent Root one
 	render() {
 		return (
 			<div className="container">
@@ -14,7 +16,7 @@ let Home = React.createClass({
 				</div>
 
 				<div>
-					<RouteHandler />
+					<RouteHandler {...this.props} />
 				</div>
 			</div>
 		);

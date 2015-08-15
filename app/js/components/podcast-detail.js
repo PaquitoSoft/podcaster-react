@@ -8,33 +8,29 @@ let PodcastDetail = React.createClass({
 
 	mixins: [State],
 
-	getInitialState() {
-		return {
-			podcast: new PodcastModel()
-		};
+	statics: {
+		fetchData(params) {
+			return PodcastsStore.findById(params.podcastId);
+		}
 	},
 
-	componentDidMount() {
-		PodcastsStore.findById(this.getParams().podcastId)
-			.then(podcast => {
-				this.setState({ podcast: podcast });
-			})
-			.catch(err => {
-				console.warn('Error fetching podcast data:', this.getParams().podcastId, err);
-			});
+	getInitialState() {
+		return {
+			podcast: this.props.data[0]
+		};
 	},
 
 	render() {
 		var episodes = this.state.podcast.episodes.map((episode, index) => {
 			return (
-				<tr key={index}>
+				<tr className="podcast-episode-summary" key={index}>
 					<td>
 						<Link to="episode" params={{podcastId: this.state.podcast.id, episodeId: episode.id}}>
 							{episode.title}
 						</Link>
 					</td>
 					<td>{episode.date}</td>
-					<td>{episode.duration}</td>
+					<td className="duration">{episode.duration}</td>
 				</tr>
 			);
 		}, this);
@@ -45,7 +41,7 @@ let PodcastDetail = React.createClass({
 				
 				<div className="col-md-8 col-md-offset-1 section podcast-episodes-count">
 					<span>
-						Episodes: 10
+						Episodes: {this.state.podcast.episodes.length}
 					</span>
 				</div>
 
