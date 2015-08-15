@@ -27,7 +27,7 @@ let Home = React.createClass({
 	filterPodcasts(e) {
 		var regExp = new RegExp(e.target.value, 'i');
 		this.setState({
-			filteredPodcasts: this.originalPodcasts.filter(function(podcast) {
+			filteredPodcasts: this.originalPodcasts.filter(podcast => {
 				return regExp.test(podcast.name + podcast.author);
 			})
 		})
@@ -35,7 +35,7 @@ let Home = React.createClass({
 
 	render() {
 		console.info('Home render...');
-		
+
 		let podcasts = this.state.filteredPodcasts.map(function (podcast, index) {
 			return <PodcastSummary podcast={podcast} key={index} />;
 		}, this);

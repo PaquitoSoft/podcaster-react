@@ -8,6 +8,7 @@ class Podcast {
 			this.description = rawData.summary ? rawData.summary.label : '';
 			if (rawData['im:releaseDate']) {
 				this.releaseDate = rawData['im:releaseDate'].attributes.label; // rawData['im:releaseDate'].label => zulu date
+				this.lastEpisodeDate = (new Date(rawData['im:releaseDate'].label)).getTime();
 			}
 			this.cover = rawData['im:image'].filter((imageData) => {
 				return imageData.attributes.height === '170';

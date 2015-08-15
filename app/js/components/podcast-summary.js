@@ -16,7 +16,8 @@ let PodcastSummary = React.createClass({
 							<p>
 								<span className="text-center">
 									<span>Author: </span>
-									<span>{this.props.podcast.author}</span></span>
+									<span>{this.props.podcast.author}</span>
+								</span>
 							</p>
 						</div>
 					</Link>

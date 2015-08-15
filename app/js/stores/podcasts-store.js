@@ -57,14 +57,17 @@ function fetchPodcastEpisodes(podcast) {
 				// });
 				// NodeList has been enhaced in app.js file
 				podcast.episodes = podcastDoc.querySelectorAll('rss channel item').map(p => {
-					let desc = p.querySelector('description');
+					let desc = p.querySelector('description'),
+						pubDate = p.querySelector('pubDate'),
+						duration = p.getElementsByTagNameNS(itunesNS, 'duration')[0];
+					
 					return {
 						id: `${podcast.id}_${episodeIds++}`,
 						title: p.querySelector('title').textContent,
 						description: desc ? desc.textContent : '',
-						date: new Date(p.querySelector('pubDate').textContent).toLocaleDateString(),
+						date: p.querySelector('pubDate') ? new Date(pubDate.textContent).toLocaleDateString() : '',
 						// http://stackoverflow.com/questions/4288232/javascript-xml-parser-how-to-get-nodes-that-have-in-the-name
-						duration: p.getElementsByTagNameNS(itunesNS, 'duration')[0].textContent,
+						duration: duration ? duration.textContent : '--',
 						mediaUrl: p.querySelector('enclosure').getAttribute('url')
 					};
 				});
@@ -106,9 +109,6 @@ let PodcastsStore = {
 					.catch(reject);
 			});
 		}
-		return getPodcastLite(podcastId)
-			.then(fetchPodcastFeedUrl)
-			.then(fetchPodcastEpisodes);
 	}
 
 }
