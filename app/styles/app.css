@@ -157,6 +157,10 @@ body {
 	padding-left: 15px;
 }
 
+.podcast-episode-summary .duration {
+	text-align: center;
+}
+
 .episode-detail {
 	margin: 10px;
 }
