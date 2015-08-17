@@ -1,7 +1,8 @@
 import React from 'react';
-import { State, Link } from 'react-router';
+import { State } from 'react-router';
 import PodcastsStore from '../stores/podcasts-store';
 import PodcastModel from '../models/podcast';
+import Link from './custom-link';
 import PodcastSidebar from './podcast-sidebar';
 
 let PodcastDetail = React.createClass({
@@ -16,7 +17,7 @@ let PodcastDetail = React.createClass({
 
 	getInitialState() {
 		return {
-			podcast: this.props.data[0]
+			podcast: this.props.data.podcast // Use the name of the route which uses this page component
 		};
 	},
 

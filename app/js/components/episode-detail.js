@@ -15,10 +15,13 @@ let EpisodeDetail = React.createClass({
 	},
 
 	getInitialState() {
-		console.log(this.props);
+		// data prop holds a property named with the name of the route
+		// configured to use this page component. Its value is the result
+		// of invoking statics.fetchData
+		let podcast = this.props.data.episode;
 		return {
-			podcast: this.props.data[0],
-			episode: this.props.data[0].episodes.filter(ep => {
+			podcast: podcast,
+			episode: podcast.episodes.filter(ep => {
 					return ep.id === this.props.params.episodeId;
 				})[0]
 		};

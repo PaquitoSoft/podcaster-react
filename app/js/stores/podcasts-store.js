@@ -59,7 +59,8 @@ function fetchPodcastEpisodes(podcast) {
 				podcast.episodes = podcastDoc.querySelectorAll('rss channel item').map(p => {
 					let desc = p.querySelector('description'),
 						pubDate = p.querySelector('pubDate'),
-						duration = p.getElementsByTagNameNS(itunesNS, 'duration')[0];
+						duration = p.getElementsByTagNameNS(itunesNS, 'duration')[0],
+						enclosure = p.querySelector('enclosure');
 					
 					return {
 						id: `${podcast.id}_${episodeIds++}`,
@@ -68,7 +69,7 @@ function fetchPodcastEpisodes(podcast) {
 						date: p.querySelector('pubDate') ? new Date(pubDate.textContent).toLocaleDateString() : '',
 						// http://stackoverflow.com/questions/4288232/javascript-xml-parser-how-to-get-nodes-that-have-in-the-name
 						duration: duration ? duration.textContent : '--',
-						mediaUrl: p.querySelector('enclosure').getAttribute('url')
+						mediaUrl: enclosure ? enclosure.getAttribute('url') : ''
 					};
 				});
 
