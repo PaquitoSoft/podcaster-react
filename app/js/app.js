@@ -13,24 +13,23 @@ NodeList.prototype.map = Array.prototype.map;
 let appMainEl = document.getElementById('app');
 
 Router.run(routes, function (Root, state) {
-	console.log('URL changed!!! This is the state:', state);
-	// React.render(<Root />, document.getElementById('app'));
-
-	// TODO Show loader indicator
-
+	// console.log('URL changed!!! This is the state:', state);
+	
 	let promises = state.routes.filter(route => {
 		return route.handler.fetchData;
-	// }).reduce((prev, route) => {
-	// 	prev[route.name] = route.fetchData(state.params);
-	// }, {});
-	}).map(route => {
-		return route.handler.fetchData(state.params);
-	});
-
-	Promise.all(promises)
+	}).reduce((prev, route) => {
+		prev.names.push(route.name);
+		prev.fns.push(route.handler.fetchData(state.params));
+		return prev;
+	}, {names: [], fns: []});
+	
+	Promise.all(promises.fns)
 		.then(data => {
-			// TODO Hide loader indicator
-			
-			React.render(<Root data={data} />, appMainEl);
+			let props = data.reduce((prev, result, index) => {
+				prev[promises.names[index]] = result;
+				return prev;
+			}, {});
+
+			React.render(<Root data={props} />, appMainEl);
 		});
 });

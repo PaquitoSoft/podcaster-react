@@ -9,26 +9,18 @@ let Home = React.createClass({
 		};
 	},
 
-	showLoader(e) {
-		console.log('Must show loader indicator...');
-		console.log(e.currentTarget);
-		console.log(e.target);
-		console.log(typeof e.target);
-		console.log(e.target);
-		console.dir(e.target);
-		// console.log(typeof e.relatedTarget);
-		// console.log(e.relatedTarget);
-		// console.dir(e.relatedTarget);
-		console.log('----------------------------------');
-		if (e.target.tagName === 'A') {
+	clickHandler(e) {
+		if (e.isNavigationEvent) {
 			this.setState({
 				loaderClass: ''
 			});
 		}
 	},
 
-	hideLoader() {
-		console.log('Must hide loader indicator...');
+	componentWillReceiveProps(newProps) {
+		this.setState({
+			loaderClass: 'hidden'
+		});
 	},
 
 	// props syntax is to be able to pass to inner route handlers 
@@ -36,7 +28,7 @@ let Home = React.createClass({
 	render() {
 		let spinnerClasses = `spinner pull-right ${this.state.loaderClass}`;
 		return (
-			<div className="container" onClick={this.showLoader}>
+			<div className="container" onClick={this.clickHandler}>
 				<div className="header clearfix">
 					<h3 className="text-muted">
 						<Link to="/">

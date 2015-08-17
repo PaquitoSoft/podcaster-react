@@ -16,7 +16,7 @@ let PodcastDetail = React.createClass({
 
 	getInitialState() {
 		return {
-			podcast: this.props.data[0]
+			podcast: this.props.data.podcast // Use the name of the route which uses this page component
 		};
 	},
 
