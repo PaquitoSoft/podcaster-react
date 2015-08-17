@@ -4,23 +4,17 @@ import PodcastsStore from '../stores/podcasts-store';
 
 let Home = React.createClass({
 
-	getInitialState() {
-		console.info('Home initial state...');
-	    
-	    PodcastsStore.findAll().
-			then((podcasts) => {
-				this.originalPodcasts = podcasts;
-				this.setState({
-					filteredPodcasts: podcasts
-				});
-			},
-			(err) => {
-				console.warn('Error fetching podcasts:', err);
-			});
+	statics: {
+		fetchData() {
+			return PodcastsStore.findAll();	
+		}
+	},
 
+	getInitialState() {
+		this.originalPodcasts = this.props.data.home;
 		return { 
 			filter: '',
-			filteredPodcasts: [] 
+			filteredPodcasts: this.originalPodcasts
 		};
 	},
 	
@@ -34,8 +28,6 @@ let Home = React.createClass({
 	},
 
 	render() {
-		console.info('Home render...');
-
 		let podcasts = this.state.filteredPodcasts.map(function (podcast, index) {
 			return <PodcastSummary podcast={podcast} key={index} />;
 		}, this);

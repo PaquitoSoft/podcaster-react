@@ -10,6 +10,6 @@ export default (
 	<Route name="app" path="/" handler={Main}>
 		<Route name="podcast" path="podcast/:podcastId" handler={PodcastDetail} />
 		<Route name="episode" path="podcast/:podcastId/episode/:episodeId" handler={EpisodeDetail} />
-		<DefaultRoute handler={Home} />
+		<DefaultRoute name="home" handler={Home} />
 	</Route>
 );
