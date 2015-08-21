@@ -37,7 +37,7 @@ let PodcastDetail = React.createClass({
 		}, this);
 
 		return (
-			<div className="row">
+			<div>
 				<PodcastSidebar podcast={this.state.podcast} />
 				
 				<div className="col-md-8 col-md-offset-1 section podcast-episodes-count">

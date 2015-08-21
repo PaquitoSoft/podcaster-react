@@ -15,7 +15,7 @@ let Home = React.createClass({
 				this.setState({
 					loaderClass: ''
 				});	
-			}, 150);
+			}, 75);
 		}
 	},
 
@@ -29,9 +29,9 @@ let Home = React.createClass({
 	// props syntax is to be able to pass to inner route handlers 
 	// data received by parent Root one
 	render() {
-		let spinnerClasses = `spinner pull-right ${this.state.loaderClass}`;
+		let spinnerClasses = `spinner ${this.state.loaderClass}`;
 		return (
-			<div className="container" onClick={this.clickHandler}>
+			<div onClick={this.clickHandler}>
 				<div className="header clearfix">
 					<h3 className="text-muted">
 						<Link to="/">
@@ -44,7 +44,7 @@ let Home = React.createClass({
 					</h3>
 				</div>
 
-				<div>
+				<div className="main-content">
 					<RouteHandler {...this.props} />
 				</div>
 			</div>

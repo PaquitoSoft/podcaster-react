@@ -26,27 +26,10 @@ let EpisodeDetail = React.createClass({
 				})[0]
 		};
 	},
-
-	// componentDidMount() {
-	// 	let routeParams = this.getParams();
-
-	// 	PodcastsStore.findById(routeParams.podcastId)
-	// 		.then(podcast => {
-	// 			this.setState({
-	// 				podcast: podcast,
-	// 				episode: podcast.episodes.filter(ep => {
-	// 						return ep.id === routeParams.episodeId;
-	// 					})[0]
-	// 			});
-	// 		})
-	// 		.catch(err => {
-	// 			console.warn('Error fetching podcast data:', this.getParams().podcastId, err);
-	// 		});
-	// },
-
+	
 	render() {
 		return (
-			<div className="row">
+			<div>
 				<PodcastSidebar podcast={this.state.podcast} />
 				<div className="col-md-8 col-md-offset-1 section">
 					<div className="episode-detail">
