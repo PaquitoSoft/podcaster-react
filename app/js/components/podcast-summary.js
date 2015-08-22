@@ -1,10 +1,17 @@
 import React from 'react';
-// import { Link } from 'react-router';
 import Link from './custom-link';
 
 let PodcastSummary = React.createClass({
 
 	render() {
+		let favButtonClassNames = 'glyphicon ';
+		
+		if (this.props.podcast.isFavorite) {
+			favButtonClassNames += 'glyphicon-star';
+		} else {
+			favButtonClassNames += 'glyphicon-star-empty';
+		}
+
 		return (
 			<div className="col-xs-12 col-sm-3 col-md-3 col-lg-3 podcast-summary">
 				<div className="box">
@@ -18,6 +25,9 @@ let PodcastSummary = React.createClass({
 								<span className="text-center">
 									<span>Author: </span>
 									<span>{this.props.podcast.author}</span>
+									<div className="favorite-buttons">
+										<span className={favButtonClassNames} aria-hidden="true"></span>
+									</div>
 								</span>
 							</p>
 						</div>
