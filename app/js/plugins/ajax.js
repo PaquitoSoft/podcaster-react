@@ -67,6 +67,19 @@ export function getXml(url, options) {
 	return getData(url, xmlParser, options);
 }
 
+export function putJson(url, data) {
+	return fetch(url, {
+			method: 'put',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+		.then(checkResponseStatus);
+}
+
+
 /*
 	Idea from http://blog.garstasio.com/you-dont-need-jquery/ajax/#jsonp
 */

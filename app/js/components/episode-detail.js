@@ -1,7 +1,6 @@
 import React from 'react';
 import { State } from 'react-router';
 import PodcastModel from '../models/podcast';
-import PodcastsStore from '../stores/podcasts-store';
 import PodcastSidebar from './podcast-sidebar';
 
 let EpisodeDetail = React.createClass({
@@ -10,7 +9,7 @@ let EpisodeDetail = React.createClass({
 
 	statics: {
 		fetchData(params) {
-			return PodcastsStore.findById(params.podcastId);
+			return PodcastsModel.findById(params.podcastId);
 		}
 	},
 

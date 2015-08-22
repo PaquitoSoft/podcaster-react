@@ -3,6 +3,13 @@ import Link from './custom-link';
 
 let PodcastSummary = React.createClass({
 
+	handleFavorite(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		this.props.podcast.toggleFavorite();
+		this.forceUpdate();
+	},
+
 	render() {
 		let favButtonClassNames = 'glyphicon ';
 		
@@ -26,7 +33,7 @@ let PodcastSummary = React.createClass({
 									<span>Author: </span>
 									<span>{this.props.podcast.author}</span>
 									<div className="favorite-buttons">
-										<span className={favButtonClassNames} aria-hidden="true"></span>
+										<span className={favButtonClassNames} onClick={this.handleFavorite} aria-hidden="true"></span>
 									</div>
 								</span>
 							</p>

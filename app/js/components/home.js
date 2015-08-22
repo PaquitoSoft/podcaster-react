@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import PodcastSummary from './podcast-summary';
-import PodcastsStore from '../stores/podcasts-store';
+import PodcastModel from '../models/podcast';
 
 let Home = React.createClass({
 
 	statics: {
 		fetchData() {
-			return PodcastsStore.findAll();	
+			return PodcastModel.findAll();	
 		}
 	},
 
