@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import PodcastSummary from './podcast-summary';
 import PodcastModel from '../models/podcast';
 
@@ -32,15 +31,28 @@ let Home = React.createClass({
 	},
 
 	changeOrder(newOrder) {
+		let property = (newOrder === 'last-updated') ? 'lastEpisodeDate' : 'isFavorite';
 		if (newOrder !== this.state.order) {
-
+			this.setState({
+				order: newOrder,
+				filteredPodcasts: this.state.filteredPodcasts.sort((a, b) => {
+					return (+b[property]) - (+a[property]);
+				})
+			})
 		}
+		console.log('changing podcasts order...');
+	},
+
+	orderByLastUpdatedchangeOrder() {
+		this.changeOrder('last-updated');
+	},
+
+	orderByFavorites() {
+		this.changeOrder('favorites');
 	},
 
 	getFilterButtonClassNames(buttonType) {
-		// https://facebook.github.io/react/docs/class-name-manipulation.html
-		// https://github.com/JedWatson/classnames
-		return classNames('btn', 'btn-default', 'btn-lg', buttonType, {active: this.state.order === buttonType});
+		return `btn btn-lg ${buttonType} ${(this.state.order === buttonType ? 'btn-primary' : 'btn-default')}`;
 	},
 
 	render() {
@@ -53,8 +65,8 @@ let Home = React.createClass({
 
 				<div className="row filter">
 					<div className="col-md-5">
-						<button type="button" onClick={this.changeOrder('last-updated')} className={this.getFilterButtonClassNames('last-updated')} >Last updated</button>
-						<button type="button" onClick={this.changeOrder('favorites')} className={this.getFilterButtonClassNames('favorites')} >Favorites</button>
+						<button type="button" onClick={this.orderByLastUpdatedchangeOrder} className={this.getFilterButtonClassNames('last-updated')} >Last updated</button>
+						<button type="button" onClick={this.orderByFavorites} className={this.getFilterButtonClassNames('favorites')} >Favorites</button>
 					</div>
 					<div className="col-md-5 col-md-offset-2">
 						<span className="badge">{this.state.filteredPodcasts.length}</span>

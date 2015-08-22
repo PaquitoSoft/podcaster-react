@@ -159,15 +159,6 @@ class Podcast {
 
 
 	static findAll() {
-		// return new Promise((resolve, reject) => {
-		// 	ajax.getJson(PODCASTS_DATASOURCE_URL, { ttl: PODCASTS_LIST_CACHE_TTL })
-		// 		.then(function onSuccess(data) {
-		// 			resolve(data.feed.entry.map(raw => {
-		// 				return new PodcastModel(raw);
-		// 			}));
-		// 		}, reject);
-		// });
-
 		return ajax.getJson(PODCASTS_DATASOURCE_URL, { ttl: PODCASTS_LIST_CACHE_TTL })
 				.then(createModels)
 				.then(processFavoritePodcasts);
