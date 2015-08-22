@@ -11,10 +11,13 @@ let Home = React.createClass({
 	},
 
 	getInitialState() {
-		this.originalPodcasts = this.props.data.home;
+		this.originalPodcasts = this.props.data.home.sort((a, b) => {
+			return b.lastEpisodeDate - a.lastEpisodeDate;
+		});
 		return { 
 			filter: '',
-			filteredPodcasts: this.originalPodcasts
+			filteredPodcasts: this.originalPodcasts,
+			order: 'last-updated'
 		};
 	},
 	

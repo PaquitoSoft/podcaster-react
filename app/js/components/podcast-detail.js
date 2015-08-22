@@ -16,6 +16,10 @@ let PodcastDetail = React.createClass({
 	},
 
 	getInitialState() {
+		let podcast = this.props.data.podcast;
+		podcast.episodes = podcast.episodes.sort((a, b) => {
+			return b.timestamp - a.timestamp;
+		});
 		return {
 			podcast: this.props.data.podcast // Use the name of the route which uses this page component
 		};

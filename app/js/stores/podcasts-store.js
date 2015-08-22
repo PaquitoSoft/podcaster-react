@@ -60,13 +60,14 @@ function fetchPodcastEpisodes(podcast) {
 					let desc = p.querySelector('description'),
 						pubDate = p.querySelector('pubDate'),
 						duration = p.getElementsByTagNameNS(itunesNS, 'duration')[0],
-						enclosure = p.querySelector('enclosure');
-					
+						enclosure = p.querySelector('enclosure');					
+
 					return {
 						id: `${podcast.id}_${episodeIds++}`,
 						title: p.querySelector('title').textContent,
 						description: desc ? desc.textContent : '',
-						date: p.querySelector('pubDate') ? new Date(pubDate.textContent).toLocaleDateString() : '',
+						date: pubDate ? new Date(pubDate.textContent).toLocaleDateString() : '',
+						timestamp: pubDate ? (new Date(pubDate.textContent)).getTime() : 0,
 						// http://stackoverflow.com/questions/4288232/javascript-xml-parser-how-to-get-nodes-that-have-in-the-name
 						duration: duration ? duration.textContent : '--',
 						mediaUrl: enclosure ? enclosure.getAttribute('url') : ''
