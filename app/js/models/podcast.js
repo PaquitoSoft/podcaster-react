@@ -13,7 +13,7 @@ const PODCAST_DETAIL_CACHE_TTL = 2880; // (two days)
 
 function getPodcastLite(podcastId) {
 	return new Promise((resolve, reject) => {
-		PodcastsStore.findAll()
+		Podcast.findAll()
 			.then(podcasts => {
 				let podcast = podcasts.filter(pod => {
 					return podcastId === pod.id;

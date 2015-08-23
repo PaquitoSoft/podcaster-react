@@ -9,7 +9,7 @@ let EpisodeDetail = React.createClass({
 
 	statics: {
 		fetchData(params) {
-			return PodcastsModel.findById(params.podcastId);
+			return PodcastModel.findById(params.podcastId);
 		}
 	},
 

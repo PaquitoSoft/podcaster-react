@@ -1,5 +1,6 @@
 import React from 'react';
-import { RouteHandler, Link } from 'react-router';
+import { RouteHandler } from 'react-router';
+import Link from './custom-link';
 
 let Home = React.createClass({
 
@@ -10,7 +11,7 @@ let Home = React.createClass({
 	},
 
 	clickHandler(e) {
-		if (e.isNavigationEvent) {
+		if (e.nativeEvent.isNavigationEvent) {
 			this.loaderTo = setTimeout(() => {
 				this.setState({
 					loaderClass: ''

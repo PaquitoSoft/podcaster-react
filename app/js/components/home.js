@@ -1,4 +1,5 @@
 import React from 'react';
+import lscache from 'lscache';
 import PodcastSummary from './podcast-summary';
 import PodcastModel from '../models/podcast';
 
@@ -17,7 +18,7 @@ let Home = React.createClass({
 		return { 
 			filter: '',
 			filteredPodcasts: this.originalPodcasts,
-			order: 'last-updated'
+			order: lscache.get('podcast-order') || 'last-updated'
 		};
 	},
 	
@@ -30,17 +31,18 @@ let Home = React.createClass({
 		})
 	},
 
-	changeOrder(newOrder) {
+	changeOrder(newOrder, forceChange) {
 		let property = (newOrder === 'last-updated') ? 'lastEpisodeDate' : 'isFavorite';
-		if (newOrder !== this.state.order) {
+
+		if (newOrder !== this.state.order || forceChange) {
 			this.setState({
 				order: newOrder,
 				filteredPodcasts: this.state.filteredPodcasts.sort((a, b) => {
 					return (+b[property]) - (+a[property]);
 				})
-			})
+			});
+			lscache.set('podcast-order', newOrder);
 		}
-		console.log('changing podcasts order...');
 	},
 
 	orderByLastUpdatedchangeOrder() {
@@ -53,6 +55,10 @@ let Home = React.createClass({
 
 	getFilterButtonClassNames(buttonType) {
 		return `btn btn-lg ${buttonType} ${(this.state.order === buttonType ? 'btn-primary' : 'btn-default')}`;
+	},
+
+	componentWillMount() {
+		this.changeOrder(this.state.order, true);
 	},
 
 	render() {
