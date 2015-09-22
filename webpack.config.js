@@ -7,12 +7,21 @@ module.exports = {
 		path: './dist',
 		filename: 'podcaster-app.js'
 	},
+	resolveLoader: {
+		// I need this to allow using locally linked npm modules
+		root: require('path').join(__dirname, 'node_modules')
+	},
 	module: {
 		loaders: [
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
 				loader: 'babel'
+			},
+
+			{
+				test: /\.html$/,
+				loader: 'raw'
 			},
 
 			// http://webpack.github.io/docs/stylesheets.html

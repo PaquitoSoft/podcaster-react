@@ -11,6 +11,12 @@ const FAVORITES_SERVICE_URL = 'https://ps-podcaster.firebaseio.com/favorites.jso
 const PODCASTS_LIST_CACHE_TTL = 1440; // minutes (one day)
 const PODCAST_DETAIL_CACHE_TTL = 2880; // (two days)
 
+// Enhance dom collections with array functions
+// (https://gist.github.com/DavidBruant/1016007)
+// We add this to help XML parsing (podcast RSS)
+NodeList.prototype.forEach = Array.prototype.forEach;
+NodeList.prototype.map = Array.prototype.map;
+
 function getPodcastLite(podcastId) {
 	return new Promise((resolve, reject) => {
 		Podcast.findAll()
