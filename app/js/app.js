@@ -11,16 +11,21 @@ let App = BaseApp.extend({
 	routesConfiguration: routesConfiguration,
 	onBeforeNavigation: function() {
 		console.info('Navigation start...');
+		this.set('loading', true);
 	},
 	onNavigationDone: function() {
 		console.info('...navigation end!');
 		window.scrollTo(0, 0);
+		this.set('loading', false);
 	},
-	showError(message) {
+	showError: function(message) {
 		this.set('errorMsg', message);
 		setTimeout(function() {
 			this.set('errorMsg', null);
 		}.bind(this), 2500);
+	},
+	data: {
+		loading: false
 	}
 });
 
