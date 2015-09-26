@@ -18,6 +18,16 @@ let HomePage = BasePage.extend({
 			podcasts: this.originalPodcasts,
 			order: lscache.get('podcast-order') || 'last-updated'
 		});
+	},
+	events: {
+		filterPodcasts: function(event) {
+			var regExp = new RegExp(event.context.filter, 'i');
+			this.set('podcasts',
+				this.originalPodcasts.filter(function(podcast) {
+					return regExp.test(podcast.name + podcast.author);
+				})
+			);
+		}
 	}
 });
 

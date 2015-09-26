@@ -10,11 +10,9 @@ let App = BaseApp.extend({
 	template: Template,
 	routesConfiguration: routesConfiguration,
 	onBeforeNavigation: function() {
-		console.info('Navigation start...');
 		this.set('loading', true);
 	},
 	onNavigationDone: function() {
-		console.info('...navigation end!');
 		window.scrollTo(0, 0);
 		this.set('loading', false);
 	},

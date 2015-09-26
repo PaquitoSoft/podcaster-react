@@ -1,13 +1,13 @@
 <div class="podcasts-grid">
 	<div class="row filter">
 		<div class="col-md-5">
-			<button type="button" class="btn-primary">Last updated</button>
-			<button type="button" class="btn-default">Favorites</button>
+			<button type="button" class="btn btn-primary">Last updated</button>
+			<button type="button" class="btn btn-default">Favorites</button>
 		</div>
 		<div class="col-md-5 col-md-offset-2">
-			<span class="badge">0</span>
+			<span class="badge">{{podcasts.length}}</span>
 			<input id="filter" type="text" class="form-control input-lg" autoFocus 
-				placeholder="Filter podcasts...">
+				placeholder="Filter podcasts..." on-input="filterPodcasts" value="{{filter}}">
 		</div>
 	</div>
 
