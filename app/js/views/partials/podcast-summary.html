@@ -11,7 +11,7 @@
 						<span>Author: </span>
 						<span>{{podcast.author}}</span>
 						<div class="favorite-buttons">
-							<span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+							<span class="glyphicon glyphicon-star {{^podcast.isFavorite}}glyphicon-star-empty{{/}}" aria-hidden="true" on-click="toggleFavorite"></span>
 						</div>
 					</span>
 				</p>

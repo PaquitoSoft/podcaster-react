@@ -1,8 +1,8 @@
 <div class="podcasts-grid">
 	<div class="row filter">
 		<div class="col-md-5">
-			<button type="button" class="btn btn-primary">Last updated</button>
-			<button type="button" class="btn btn-default">Favorites</button>
+			<button type="button" class="btn btn-default {{#order ==='last-updated'}}btn-primary{{/}}" on-click="changeOrder:{{'last-updated'}}">Last updated</button>
+			<button type="button" class="btn btn-default {{#order ==='favorite'}}btn-primary{{/}}" on-click="changeOrder:{{'favorite'}}">Favorites</button>
 		</div>
 		<div class="col-md-5 col-md-offset-2">
 			<span class="badge">{{podcasts.length}}</span>
